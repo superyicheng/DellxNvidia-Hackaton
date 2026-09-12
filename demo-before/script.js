@@ -15,25 +15,11 @@ modal.querySelectorAll('[data-close-modal]').forEach((button) => {
 });
 
 modal.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    modal.hidden = true;
-    return;
-  }
-  if (event.key !== 'Tab') return;
-  const focusables = modal.querySelectorAll(
-    'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-  );
-  if (focusables.length === 0) return;
-  const first = focusables[0];
-  const last = focusables[focusables.length - 1];
-  // Let Tab move through every control in the dialog, wrapping at the ends.
-  if (event.shiftKey && document.activeElement === first) {
+  if (event.key === 'Tab') {
     event.preventDefault();
-    last.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault();
-    first.focus();
+    closeButton.focus();
   }
+  if (event.key === 'Escape') modal.hidden = true;
 });
 
 document.querySelector('#gift-form').addEventListener('submit', (event) => {
